@@ -53,7 +53,7 @@ public class BigTest {
             if (game.gameStatus() == HangmanGame.Status.GAME_WON)
                 won++;
             else {
-                System.out.println("LOST");
+                //System.out.println("LOST");
                 lost++;
             }
         }
