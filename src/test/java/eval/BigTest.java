@@ -124,7 +124,8 @@ public class BigTest {
             lost += gamers[i].lost();
         }
 
-        logger.info("won = " + won + " ; lost = " + lost + " " + filename);
+        logger.info("won = " + won + " ; lost = " + lost
+                        + " (" + ((100.0*won)/wordlist.size()) + ") ");
     }
 
     @Test
