@@ -26,7 +26,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
     }
 
     private void buildAllIndexes() {
-        System.out.println("Size of Wordlist = " + words.size());
+        //System.out.println("Size of Wordlist = " + words.size());
         pairIndex.index(words);
         positionIndexer.buildIndex(words);
         frequencyCounter.count(this.words);
@@ -47,7 +47,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
             while (true) {
                 char c = Word.ORDERING.charAt(ix);
                 if ( !guesses.contains(c) ) {
-                    System.out.println(c);
+                    //System.out.println(c);
                     guesses.add(c);
                     return new GuessLetter(c);
                 }
@@ -71,7 +71,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
         }));
         words = tmp;
 
-        illogicalReduction(game);
+        //illogicalReduction(game);
 
         Character c = null;
 
@@ -87,7 +87,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
         }
 
         if (c != null) {
-            System.out.println("Consonant = " + c);
+            //System.out.println("Consonant = " + c);
             guesses.add(c);
             return new GuessLetter(c);
         }
@@ -113,7 +113,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
                 }
             }));
             words = tmp;
-            System.out.println("After desperate reduction, size = " + words.size());
+            //System.out.println("After desperate reduction, size = " + words.size());
         }
 
     }
