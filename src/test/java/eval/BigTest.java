@@ -194,6 +194,12 @@ public class BigTest {
             this.words = words;
             this.start = start;
             this.end = end;
+
+            if (freq) System.out.println("Running FreqEliminatingStrategy");
+            if (pair) System.out.println("Running PairEliminationStrategy");
+            if (optc) System.out.println("Running OptimisticConsonant");
+            if (redcr) System.out.println("Running IllogicalReductionStrategy");
+            if (atleastOne) System.out.println("Running All Strategies");
         }
 
         public int won() {
