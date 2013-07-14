@@ -3,6 +3,7 @@ package eval;
 import factual.HangmanGame;
 import factual.HangmanGameRunner;
 import factual.strategy.FreqEliminatingStrategy;
+import factual.strategy.IllogicalReductionStrategy;
 import factual.strategy.OptimisticConsonant;
 import factual.strategy.PairEliminationStrategy;
 import factual.support.Wordlist;
@@ -12,7 +13,7 @@ public class SmallWord {
 
     @Test
     public void singleWordGuessTest() {
-        String word = "coin";
+        String word = "mangos";
         int chances = 6;
         System.out.println("Word = " + word + " ; chances = " + chances);
 
@@ -32,6 +33,12 @@ public class SmallWord {
         game = new HangmanGame(word, chances);
         runner = new HangmanGameRunner();
         runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+        System.out.println(game);
+
+        System.out.println("----- Illogical Reduction Strategy ----- ");
+        game = new HangmanGame(word, chances);
+        runner = new HangmanGameRunner();
+        runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
         System.out.println(game);
     }
 

@@ -26,7 +26,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
     }
 
     private void buildAllIndexes() {
-        //System.out.println("Size of Wordlist = " + words.size());
+        System.out.println("Size of Wordlist = " + words.size());
         pairIndex.index(words);
         positionIndexer.buildIndex(words);
         frequencyCounter.count(this.words);
@@ -40,7 +40,6 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
         if (guesses.size() > 0 && game.getIncorrectlyGuessedLetters().contains(guesses.get(guesses.size() - 1)))
             wordElimination(guesses.get(guesses.size() - 1));
 
-        //if (words.size() < 10) System.out.println(game.numWrongGuessesRemaining() + " " + words);
         if (words.size() == 0) {
             //throw new RuntimeException("out of words....!"); //
             int ix = 0;
@@ -54,6 +53,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
                 ix++;
             }
         }
+        //if (words.size() < 30) System.out.println(game.numWrongGuessesRemaining() + " " + words);
 
         int _chances = 1; //game.numWrongGuessesRemaining();
         if (words.size() <= _chances) {
@@ -71,7 +71,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
         }));
         words = tmp;
 
-        //illogicalReduction(game);
+        illogicalReduction(game);
 
         Character c = null;
 
@@ -104,7 +104,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
     }
 
     private void illogicalReduction(HangmanGame game) {
-        if (game.numWrongGuessesMade() <= 2 && words.size() >= 10) {
+        if (game.numWrongGuessesRemaining() <= 2 && words.size() >= 10) {
             Wordlist tmp = new Wordlist();
             tmp.addAll(Collections2.filter(words, new Predicate<Word>() {
                 @Override
@@ -113,7 +113,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
                 }
             }));
             words = tmp;
-            //System.out.println("After desperate reduction, size = " + words.size());
+            System.out.println("After desperate reduction, size = " + words.size());
         }
 
     }
