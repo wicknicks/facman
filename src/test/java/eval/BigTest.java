@@ -225,8 +225,13 @@ public class BigTest {
                 runner = new HangmanGameRunner();
                 runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
-                */
 
+                game = new HangmanGame(word, chances);
+                runner = new HangmanGameRunner();
+                runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+
+                */
                 if (t) won++; else lost++;
                 //if (game.gameStatus() == HangmanGame.Status.GAME_WON) won++;
                 //else lost++;
