@@ -186,6 +186,7 @@ public class BigTest {
         private final int chances = 5;
         private int won=0, lost = 0;
 
+        /* Set one of these flags to true */
         private boolean freq = true;
         private boolean pair = false;
         private boolean optc = false;
