@@ -27,7 +27,7 @@ public class PairEliminationStrategy implements GuessingStrategy
     }
 
     private void buildAllIndexes() {
-        System.out.println("Size of Wordlist = " + words.size());
+        //System.out.println("Size of Wordlist = " + words.size());
         pairIndex.index(words);
         positionIndexer.buildIndex(words);
     }
