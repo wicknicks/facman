@@ -65,7 +65,14 @@ public class OptimisticConsonant implements GuessingStrategy {
         buildAllIndexes();
         int k=0;
         while (true) {
-            c = frequencyCounter.getMostFrequentConsonant(k);
+            if (guesses.size() >= 3 && (game.getAllGuessedLetters().size() - game.getCorrectlyGuessedLetters().size() >= 3) ) {
+                //System.out.println("most vowel");
+                c = frequencyCounter.getMostFrequentVowel(k);
+            }
+            else {
+                //System.out.println("freq consonant");
+                c = frequencyCounter.getMostFrequentConsonant(k);
+            }
             if (c == null) break;
             if ( !guesses.contains(c) ) break;
             c = null;

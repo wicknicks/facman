@@ -204,14 +204,15 @@ public class BigTest {
             for (int i = start; i < end; i++) {
                 t = false;
                 String word = words.get(i);
+                if (i % 100 == 0) System.out.println(word + " " + i);
 
                 HangmanGame game = new HangmanGame(word, chances);
                 HangmanGameRunner runner = new HangmanGameRunner();
 
                 //runner.run(game, new FreqEliminatingStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 //runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-                //runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-                runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                //runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
 
                 /*
