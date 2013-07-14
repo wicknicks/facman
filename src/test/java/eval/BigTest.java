@@ -199,7 +199,9 @@ public class BigTest {
         @Override
         public void run() {
             //System.out.println("Starting: " + start + " " + end);
+            boolean t;
             for (int i = start; i < end; i++) {
+                t = false;
                 String word = words.get(i);
 
                 HangmanGame game = new HangmanGame(word, chances);
@@ -208,8 +210,22 @@ public class BigTest {
                 runner.run(game, new FreqEliminatingStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 //runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 //runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-                if (game.gameStatus() == HangmanGame.Status.GAME_WON) won++;
-                else lost++;
+                if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+
+                game = new HangmanGame(word, chances);
+                runner = new HangmanGameRunner();
+                runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+
+
+                game = new HangmanGame(word, chances);
+                runner = new HangmanGameRunner();
+                runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+
+                if (t) won++; else lost++;
+                //if (game.gameStatus() == HangmanGame.Status.GAME_WON) won++;
+                //else lost++;
             }
         }
     }
