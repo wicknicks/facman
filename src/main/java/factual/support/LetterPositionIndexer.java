@@ -2,6 +2,22 @@ package factual.support;
 
 import java.util.*;
 
+/**
+ * Create an inverted index of (character, position) pairs.
+ *
+ * For example, if the wordlist looks like:
+ * 1. ABC
+ * 2. DAD
+ * 3. BAD
+ *
+ * A1 -> [1]
+ * A2 -> [2, 3]
+ * D3 -> [2, 3]
+ *
+ * and so on.... Used in {@link factual.strategy.PairEliminationStrategy} to eliminate
+ * words after more than one letter has been guessed.
+ */
+
 public class LetterPositionIndexer {
 
     HashMap<String, IndexItem> index = new HashMap<String, IndexItem>();

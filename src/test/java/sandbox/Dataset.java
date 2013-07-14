@@ -1,5 +1,6 @@
 package sandbox;
 
+import factual.support.Wordlist;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import prelim.FileSplitter;
@@ -26,6 +27,11 @@ public class Dataset {
             writers[i] = new BufferedWriter(new FileWriter("data/" + i + ".sp.txt"));
         (new FileSplitter()).split("data/words.txt", new FileSplitter.FileAllocCriterion(), writers);
         for (BufferedWriter writer : writers) writer.close();
+    }
+
+    @Test
+    public void loadbadfile() {
+        Wordlist.loadFromFile("something");
     }
 
     @Test

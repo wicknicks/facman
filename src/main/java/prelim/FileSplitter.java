@@ -2,6 +2,11 @@ package prelim;
 
 import java.io.*;
 
+/**
+ * Split the given words.txt file into 1.sp.txt, 2.sp.txt. 3.sp.txt .... 28.sp.txt
+ * Each m.sp.txt contains words which are m characters long.
+ */
+
 public class FileSplitter {
 
     public void split(String file, FileAllocCriterion criterion, BufferedWriter[] writers) throws IOException {

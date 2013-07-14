@@ -13,6 +13,34 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * <p>
+ * The letter ordering from [1] assumes that words can be arbitrarily long. Since we
+ * know the size of each word, we can construct this frequency ordering {@link CharFrequencyCounter}.
+ * </p>
+ * <p>
+ * If the previous guess was correct, we eliminate all words which don't have that character
+ * in the same position as that of the guess word. For example, if the guess word is --A--, then
+ * remove "ABCDE", "APORT" from the {@link Wordlist}.
+ * </p>
+ * <p>
+ * At the same time, if the word was incorrect, we remove all words in the {@link Wordlist} which
+ * contain that character. For example,if X was our last guess, and it was incorrect, remove "TOXIC,
+ * "PROXY" etc..
+ * </p>
+ *
+ * Once more than 1 character has been guessed, use {@link LetterPositionIndexer} to quickly find all
+ * words which match the same pattern as the guess word. For example, if the guess word is -A-E-, find
+ * the LetterPositionIndex for words which contain A in its second position, and E in its fourth position.
+ * Perform an intersection on these two sets. Replace the current wordlist with this intersection.
+ *
+ * <p></p>
+ * <p>
+ * References:
+ * [1] http://www.datagenetics.com/blog/april12012/
+ * </p>
+ */
+
 public class FreqEliminatingStrategy implements GuessingStrategy {
 
     private Wordlist words = null;

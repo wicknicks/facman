@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * An index which maintains counts of character appearances in a given wordlist.
+ */
+
 public class CharFrequencyCounter {
 
     Counter[] counts = new Counter[Word.ALPHABET.length()];

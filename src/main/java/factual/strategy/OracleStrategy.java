@@ -2,6 +2,10 @@ package factual.strategy;
 
 import factual.*;
 
+/*
+A simple strategy which guesses the word given to it in the constructor.
+ */
+
 public class OracleStrategy implements GuessingStrategy {
 
     char[] letters = null;

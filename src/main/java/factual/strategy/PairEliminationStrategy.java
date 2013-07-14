@@ -12,6 +12,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This strategy creates an index of pair of vowels (aa, ai, ei, ou and so on..)
+ * and finds the most common pair. It tries the to eliminate {@link Wordlist} items
+ * based on these distributions.
+ */
+
 public class PairEliminationStrategy implements GuessingStrategy
 {
     private Wordlist words;

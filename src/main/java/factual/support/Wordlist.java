@@ -1,12 +1,24 @@
 package factual.support;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+
+/**
+ * Contains a list of words, and can be loaded from a particular file using the loadFromFile method()
+ */
 
 public class Wordlist extends ArrayList<Word> {
 
     public static Wordlist loadFromFile(String filename) {
+
+        File file = new File(filename);
+        if ( !file.exists() ) {
+            System.out.println(filename + " does not exist. Did you run:");
+            System.out.println("the Dataset.shardFile() test?");
+            System.exit(1);
+        }
 
         Wordlist words = new Wordlist();
 

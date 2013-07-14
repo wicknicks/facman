@@ -5,8 +5,15 @@ import factual.GuessLetter;
 import factual.GuessingStrategy;
 import factual.HangmanGame;
 
-//letter ordering taken from http://www.datagenetics.com/blog/april12012/
-
+/**
+ * Use the letter ordering "ESIARNTOLCDUPMGHBYFVKWZXQJ" [1]
+ * and guess it character for character.
+ * <p></p>
+ * <p>
+ * References:
+ * [1] http://www.datagenetics.com/blog/april12012/
+ * </p>
+*/
 public class LetterOrderingStrategy implements GuessingStrategy {
 
     final char[] order = "ESIARNTOLCDUPMGHBYFVKWZXQJ".toCharArray();

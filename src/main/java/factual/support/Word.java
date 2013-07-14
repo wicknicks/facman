@@ -1,5 +1,11 @@
 package factual.support;
 
+/**
+ * Word class is where we store each possible word.
+ * The indexable parameter determines if the word is
+ * still eligible to be guessed.
+ */
+
 public class Word {
 
     public static String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

@@ -8,10 +8,24 @@ import factual.support.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>
+ * Works in very similar manner to {@link FreqEliminatingStrategy}, but with one
+ * difference. Instead of finding the most frequent, character it first finds the most
+ * frequent consonant. This gives us a faster reduction in {@link Wordlist} search space.
+ *
+ * The variable maxk can be tweaked to guess one ore more consonants in this way before
+ * reverting to {@link FreqEliminatingStrategy}.
+ * </p>
+ *
+ */
+
 public class OptimisticConsonant implements GuessingStrategy {
 
     private Wordlist words = null;
     private List<Character> guesses = new ArrayList<Character>();
+
+    private final int maxk = 1;
 
     private PairIndex pairIndex = new PairIndex();
     private LetterPositionIndexer positionIndexer = new LetterPositionIndexer();
@@ -75,7 +89,7 @@ public class OptimisticConsonant implements GuessingStrategy {
             if ( !guesses.contains(c) ) break;
             c = null;
             k++;
-            if (k >= 1) break;
+            if (k >= maxk) break;
         }
 
         if (c != null) {

@@ -9,6 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Works very similar to {@link OptimisticConsonant}, but if its senses a loosing battle,
+ * randomly removes a percentage of the {@link Wordlist}.
+ *
+ * Percentage can be tweaked with reductionPercentage field variable.
+ */
+
 public class IllogicalReductionStrategy implements GuessingStrategy {
 
     private Wordlist words = null;
@@ -19,6 +26,9 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
     private PairIndex pairIndex = new PairIndex();
     private LetterPositionIndexer positionIndexer = new LetterPositionIndexer();
     private CharFrequencyCounter frequencyCounter = new CharFrequencyCounter();
+
+    private final int reductionPercentage = 30;
+    private final int maxk = 1;
 
     public IllogicalReductionStrategy(Wordlist words) {
         this.words = words;
@@ -83,7 +93,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
             if ( !guesses.contains(c) ) break;
             c = null;
             k++;
-            if (k >= 1) break;
+            if (k >= maxk) break;
         }
 
         if (c != null) {
@@ -109,7 +119,7 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
             tmp.addAll(Collections2.filter(words, new Predicate<Word>() {
                 @Override
                 public boolean apply(Word word) {
-                    return generator.nextInt(100) > 30;
+                    return generator.nextInt(100) > reductionPercentage;
                 }
             }));
             words = tmp;

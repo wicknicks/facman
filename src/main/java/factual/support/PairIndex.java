@@ -2,6 +2,23 @@ package factual.support;
 
 import java.util.*;
 
+/**
+ * A data structure to construct vowel pairs (aa, ae, io and so on..)
+ * and construct an inverted index over words which contain these vowel pairs.
+ *
+ * For example, if the wordlist looks like:
+ *
+ * 1. ABC
+ * 2. ATE
+ * 3. OTE
+ *
+ * Then,
+ * AE -> [1]
+ * OU -> []
+ * OE -> [3]
+ *
+ */
+
 public class PairIndex {
 
     private HashMap<String, Set<Integer>> index = new HashMap<String, Set<Integer>>();
