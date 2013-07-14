@@ -64,7 +64,7 @@ public class BigTest {
 
 
     @Test
-    public void parallelTest() throws Exception {
+    public void testParallel() throws Exception {
 
         String filename = System.getProperty("file");
         if (filename == null) filename = "data/19.sp.txt";
@@ -108,7 +108,7 @@ public class BigTest {
             lost += gamers[i].lost();
         }
 
-        logger.info("won = " + won + " ; lost = " + lost);
+        logger.info("won = " + won + " ; lost = " + lost + " " + filename);
 
     }
 
@@ -135,7 +135,7 @@ public class BigTest {
 
         @Override
         public void run() {
-            System.out.println("Starting: " + start + " " + end);
+            //System.out.println("Starting: " + start + " " + end);
             for (int i = start; i < end; i++) {
                 String word = words.get(i);
 
