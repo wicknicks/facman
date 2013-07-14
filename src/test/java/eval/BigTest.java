@@ -184,7 +184,7 @@ public class BigTest {
         private final int chances = 5;
         private int won=0, lost = 0;
 
-        private boolean freq = false;
+        private boolean freq = true;
         private boolean pair = false;
         private boolean optc = false;
         private boolean redcr = false;
@@ -214,6 +214,7 @@ public class BigTest {
         public void run() {
             //System.out.println("Starting: " + start + " " + end);
             boolean t;
+            int x = 0;
             for (int i = start; i < end; i++) {
                 t = false;
                 String word = words.get(i);
@@ -254,7 +255,11 @@ public class BigTest {
                 if (game == null) continue;
 
                 if (t) won++; else lost++;
-                if (!t) System.out.println(word + " " + game.getGuessedSoFar());
+                if (!t) {
+                    x++;
+                    System.out.print(word + " " + game.getGuessedSoFar() + "\t");
+                    if (x % 8 == 0) System.out.println();
+                }
 
                 //if (game.gameStatus() == HangmanGame.Status.GAME_WON) won++;
                 //else lost++;
