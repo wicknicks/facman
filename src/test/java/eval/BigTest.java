@@ -124,7 +124,8 @@ public class BigTest {
             lost += gamers[i].lost();
         }
 
-        logger.info("\n\nwon = " + won + " ; lost = " + lost
+        System.out.println("\n");
+        logger.info("won = " + won + " ; lost = " + lost
                 + " (" + ((100.0*won)/wordlist.size()) + ") ");
     }
 
@@ -173,7 +174,8 @@ public class BigTest {
             lost += gamers[i].lost();
         }
 
-        logger.info("\n\nwon = " + won + " ; lost = " + lost
+        System.out.println("\n");
+        logger.info("won = " + won + " ; lost = " + lost
                 + " (" + ((100.0*won)/wordlist.size()) + ") ");
     }
 
