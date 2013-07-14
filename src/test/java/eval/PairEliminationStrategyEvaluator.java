@@ -2,48 +2,28 @@ package eval;
 
 import factual.HangmanGame;
 import factual.HangmanGameRunner;
-import factual.strategy.IllogicalReductionStrategy;
+import factual.strategy.PairEliminationStrategy;
 import factual.support.Wordlist;
 import org.junit.Test;
 
-public class IllogicalStrategyTester {
+public class PairEliminationStrategyEvaluator {
+
+
     @Test
     public void singleWordGuessTest() {
         String word = "yolked";
-        int chances = 6;
+        int chances = Math.max(5, word.length());
         System.out.println("Word = " + word + " ; chances = " + chances);
 
         HangmanGame game = new HangmanGame(word, chances);
         HangmanGameRunner runner = new HangmanGameRunner();
 
-        runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+        runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
         System.out.println("(" + word.length() + ") " + game);
     }
 
-
     @Test
     public void unit() {
-
-        /*String[] words = new String[]{"poachy",
-                "podium",
-                "pogeys",
-                "pokily",
-                "cicale",
-                "citing",
-                "pouffs",
-                "clammy",
-                "prevue",
-                "clinks",
-                "prises",
-                "purism",
-                "pyrrol",
-                "python",
-                "cloyed",
-                "quaffs",
-                "clunks",
-                "quokka",
-                "coifed"
-        };*/
 
         String[] words = new String[]{
                 "COMAKER",
@@ -64,11 +44,17 @@ public class IllogicalStrategyTester {
                 "UNIFORMED"};
 
         for (String word: words) {
-            HangmanGame game = new HangmanGame(word, 5);
+
+            int chances = 5;
+
+            HangmanGame game = new HangmanGame(word, chances);
             HangmanGameRunner runner = new HangmanGameRunner();
-            runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-            System.out.println(word + " " + game);
+
+            runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+
+            System.out.println(game);
         }
 
     }
+
 }

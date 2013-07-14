@@ -25,21 +25,34 @@ public class FreqEliminatingStrategyEvaluator {
     @Test
     public void unit() {
 
-        String[] words = new String[]{"aardvark", "aahing", "aa", "electroencephalographically", "ethylenediaminetetraacetates",
-                "immunoelectrophoretically", "dichlorodifluoromethanes", "carboxymethylcellulose",
-                "acetylcholinesterases", "acetylcholinesterase", "abdicable",
-                "abdicated", "abdicates", "abdicator", "abdominal", "abductees"};
+        String[] words = new String[]{
+                "COMAKER",
+                "MISTAKES",
+                "CUMULATE",
+                "ERUPTIVE",
+                "FACTUAL",
+                "MONADISM",
+                "MUS",
+                "NAGGING",
+                "OSES",
+                "REMEMBERED",
+                "SPODUMENES",
+                "STEREOISOMERS",
+                "TOXICS",
+                "TRICHROMATS",
+                "TRIOSE",
+                "UNIFORMED"};
 
         for (String word: words) {
 
-            int chances = Math.max(5, word.length());
+            int chances = 5;
 
             HangmanGame game = new HangmanGame(word, chances);
             HangmanGameRunner runner = new HangmanGameRunner();
 
             runner.run(game, new FreqEliminatingStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
 
-            System.out.println("Word = " + word + " ; chances = " + chances + "; " + game.currentScore());
+            System.out.println(game);
         }
 
     }

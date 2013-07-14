@@ -63,7 +63,7 @@ public class OptimisticConsonant implements GuessingStrategy {
         Character c = null;
 
         buildAllIndexes();
-        System.out.println(game + " " + game.numWrongGuessesRemaining() + " ;; Size of Wordlist = " + words.size());
+        //System.out.println(game + " " + game.numWrongGuessesRemaining() + " ;; Size of Wordlist = " + words.size());
 
         int k=0;
         while (true) {

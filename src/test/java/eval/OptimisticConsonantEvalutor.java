@@ -28,7 +28,7 @@ public class OptimisticConsonantEvalutor {
     @Test
     public void unit() {
 
-        String[] words = new String[]{"poachy",
+        /* String[] words = new String[]{"poachy",
                 "podium",
                 "pogeys",
                 "pokily",
@@ -47,7 +47,25 @@ public class OptimisticConsonantEvalutor {
                 "clunks",
                 "quokka",
                 "coifed"
-        };
+        };  */
+
+        String[] words = new String[]{
+                        "COMAKER",
+                        "MISTAKES",
+                        "CUMULATE",
+                        "ERUPTIVE",
+                        "FACTUAL",
+                        "MONADISM",
+                        "MUS",
+                        "NAGGING",
+                        "OSES",
+                        "REMEMBERED",
+                        "SPODUMENES",
+                        "STEREOISOMERS",
+                        "TOXICS",
+                        "TRICHROMATS",
+                        "TRIOSE",
+                        "UNIFORMED"};
 
         for (String word: words) {
             HangmanGame game = new HangmanGame(word, 5);
