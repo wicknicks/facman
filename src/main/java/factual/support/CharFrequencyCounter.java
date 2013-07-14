@@ -54,6 +54,17 @@ public class CharFrequencyCounter {
         return counts[ max/2 ].character;
     }
 
+    public Character getMostFrequentConsonant(int k) {
+        int j = 0;
+        for (int i=0; i<counts.length; i++) {
+            if (Word.VOWELS.indexOf(counts[i].character) == -1) {
+                if (j == k) return counts[i].character;
+                j++;
+            }
+        }
+        return null;
+    }
+
     public static class Counter {
         char character;
         double percentage;

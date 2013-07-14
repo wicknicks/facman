@@ -1,5 +1,7 @@
 package eval;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import factual.HangmanGame;
 import factual.HangmanGameRunner;
 import factual.strategy.FreqEliminatingStrategy;
@@ -12,6 +14,7 @@ import sys.Utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -62,6 +65,65 @@ public class BigTest {
 
     }
 
+
+    @Test
+    public void testLimitedParallel() throws Exception {
+        String filename = System.getProperty("file");
+        if (filename == null) filename = "data/6.sp.txt";
+
+        logger.info("filename = " + filename);
+
+        BufferedReader reader = new BufferedReader(new FileReader(filename));
+        String word;
+        ArrayList<String> wordlist = new ArrayList<String>();
+
+        while (true) {
+            word = reader.readLine();
+            if (word == null) break;
+            if (word.length() < 1) continue;
+            wordlist.add(word);
+        }
+
+        logger.info("Total: " + wordlist.size());
+        int cores = Math.max(2, Runtime.getRuntime().availableProcessors() - 2);
+
+        final Random generator = new Random();
+        final int thresh = (120 * 1000 / wordlist.size());
+        wordlist = new ArrayList<String>(Collections2.filter(wordlist, new Predicate<String>() {
+            @Override
+            public boolean apply(String input) {
+                return generator.nextInt(100) < thresh;
+            }
+        }));
+
+        logger.info("Total: " + wordlist.size());
+
+        Gamer[] gamers = new Gamer[cores];
+        Thread[] runners = new Thread[cores];
+        int diff = wordlist.size()/cores;
+        int i;
+        for (i=0; i<cores-1; i++) {
+            //logger.info(diff * i + " -> " + ((i + 1) * diff));
+            gamers[i] = new Gamer(wordlist, diff * i, ((i+1)*diff));
+            runners[i] = new Thread(gamers[i]);
+            runners[i].start();
+        }
+
+        gamers[i] = new Gamer(wordlist, diff * i, wordlist.size());
+        runners[i] = new Thread(gamers[i]);
+        runners[i].start();
+        //logger.info(diff * i + " -> " + wordlist.size());
+
+        for (Thread runner : runners) runner.join();
+
+        int won=0; int lost=0;
+        for (i=0; i<gamers.length; i++) {
+            won += gamers[i].won();
+            lost += gamers[i].lost();
+        }
+
+        logger.info("won = " + won + " ; lost = " + lost + " " + filename);
+    }
 
     @Test
     public void testParallel() throws Exception {

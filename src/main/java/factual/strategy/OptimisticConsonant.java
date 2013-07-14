@@ -2,34 +2,31 @@ package factual.strategy;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 import factual.*;
 import factual.support.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-public class PairEliminationStrategy implements GuessingStrategy
-{
-    private Wordlist words;
+public class OptimisticConsonant implements GuessingStrategy {
+
+    private Wordlist words = null;
     private List<Character> guesses = new ArrayList<Character>();
 
     private PairIndex pairIndex = new PairIndex();
     private LetterPositionIndexer positionIndexer = new LetterPositionIndexer();
     private CharFrequencyCounter frequencyCounter = new CharFrequencyCounter();
 
-    public PairEliminationStrategy(Wordlist words) {
+    public OptimisticConsonant(Wordlist words) {
         this.words = words;
-        buildAllIndexes();
+        positionIndexer.buildIndex(this.words);
     }
 
     private void buildAllIndexes() {
         System.out.println("Size of Wordlist = " + words.size());
         pairIndex.index(words);
         positionIndexer.buildIndex(words);
+        frequencyCounter.count(this.words);
     }
 
     @Override
@@ -40,6 +37,16 @@ public class PairEliminationStrategy implements GuessingStrategy
         if (guesses.size() > 0 && game.getIncorrectlyGuessedLetters().contains(guesses.get(guesses.size() - 1)))
             wordElimination(guesses.get(guesses.size() - 1));
 
+        //if (words.size() < 10) System.out.println(game.numWrongGuessesRemaining() + " " + words);
+        if (words.size() == 0) throw new RuntimeException("out of words....!");
+
+        int _chances = 1; //game.numWrongGuessesRemaining();
+        if (words.size() <= _chances) {
+            GuessWord gw = new GuessWord(words.get(0).word);
+            words.remove(0);
+            return gw;
+        }
+
         Wordlist tmp = new Wordlist();
         tmp.addAll(Collections2.filter(words, new Predicate<Word>() {
             @Override
@@ -49,33 +56,23 @@ public class PairEliminationStrategy implements GuessingStrategy
         }));
         words = tmp;
 
-        buildAllIndexes();
-
-        int k=0;
         Character c = null;
+
+        buildAllIndexes();
+        int k=0;
         while (true) {
-            String s = pairIndex.findMostPopularKey(k);
-            if (s == null) break;
-            c = s.charAt(0);
+            c = frequencyCounter.getMostFrequentConsonant(k);
+            if (c == null) break;
             if ( !guesses.contains(c) ) break;
-            c = s.charAt(1);
-            if ( !guesses.contains(c) ) break;
-            k++; c=null;
+            c = null;
+            k++;
+            if (k > 3) break;
         }
 
-        //found a vowel
         if (c != null) {
             guesses.add(c);
             return new GuessLetter(c);
         }
-
-        //did not find a vowel which can be thrown at this word
-        if (game.getCorrectlyGuessedLetters().size() > 0) {
-            Set<Integer> bestGuessesSoFar = intersect(game);
-            if (bestGuessesSoFar.size() == 1) return new GuessWord(words.get(bestGuessesSoFar.iterator().next()).word);
-        }
-
-        frequencyCounter.count(this.words);
 
         k=0;
         while (true) {
@@ -86,30 +83,6 @@ public class PairEliminationStrategy implements GuessingStrategy
 
         guesses.add(c);
         return new GuessLetter(c);
-    }
-
-    private Set<Integer> intersect(HangmanGame game) {
-        Set<Integer> bestGuessIndexes = new HashSet<Integer>();
-        for (int i=0; i<words.size(); i++) bestGuessIndexes.add(i);
-
-        int count = 0;
-        char[] gamestate = game.getGuessedSoFar().toCharArray();
-        for (char ch: gamestate) {
-            if (ch != HangmanGame.MYSTERY_LETTER) count++;
-        }
-
-        if (count == 1) return bestGuessIndexes;
-
-        for (int i=0; i<gamestate.length; i++) {
-            if (gamestate[i] == HangmanGame.MYSTERY_LETTER) continue;
-            Set<Integer> lookupIndexes = positionIndexer.lookup(gamestate[i], i);
-            ImmutableSet<Integer> common = Sets.intersection(bestGuessIndexes, lookupIndexes).immutableCopy();
-
-            bestGuessIndexes.clear();
-            bestGuessIndexes.addAll(common);
-        }
-
-        return bestGuessIndexes;
     }
 
     private void spotElimination(HangmanGame game, char character) {
@@ -140,4 +113,5 @@ public class PairEliminationStrategy implements GuessingStrategy
         }
 
     }
+
 }

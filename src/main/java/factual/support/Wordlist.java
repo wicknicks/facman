@@ -29,4 +29,14 @@ public class Wordlist extends ArrayList<Word> {
 
     }
 
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (Word w: this) {
+            s.append(w.word);
+            s.append(' '); //nasty
+        }
+        return s.substring(0);
+    }
+
 }
