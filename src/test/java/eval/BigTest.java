@@ -204,15 +204,18 @@ public class BigTest {
             for (int i = start; i < end; i++) {
                 t = false;
                 String word = words.get(i);
-                if (i % 100 == 0) System.out.println(word + " " + i);
+                //if (i % 100 == 0) System.out.println(word + " " + i);
 
                 HangmanGame game = new HangmanGame(word, chances);
                 HangmanGameRunner runner = new HangmanGameRunner();
 
                 //runner.run(game, new FreqEliminatingStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 //runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-                runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-                //runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+
+                //OptimisticConsonant oc = new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt"));
+                //runner.run(game, oc);
+
+                runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
 
                 /*
@@ -234,6 +237,10 @@ public class BigTest {
 
                 */
                 if (t) won++; else lost++;
+
+                //if (!t && oc.words().size() < 10) System.out.println(word + " " + game.getGuessedSoFar() + " "  + oc.words().toString());
+                //else if (!t) System.out.println(word + " " + game.getGuessedSoFar());
+
                 //if (game.gameStatus() == HangmanGame.Status.GAME_WON) won++;
                 //else lost++;
             }

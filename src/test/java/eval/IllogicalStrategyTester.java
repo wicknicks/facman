@@ -24,16 +24,32 @@ public class IllogicalStrategyTester {
     @Test
     public void unit() {
 
-        String[] words = new String[]{"aardvark", "aahing", "aa", "electroencephalographically", "ethylenediaminetetraacetates",
-                "immunoelectrophoretically", "dichlorodifluoromethanes", "carboxymethylcellulose",
-                "acetylcholinesterases", "acetylcholinesterase", "abdicable",
-                "abdicated", "abdicates", "abdicator", "abdominal", "abductees"};
+        String[] words = new String[]{"poachy",
+                "podium",
+                "pogeys",
+                "pokily",
+                "cicale",
+                "citing",
+                "pouffs",
+                "clammy",
+                "prevue",
+                "clinks",
+                "prises",
+                "purism",
+                "pyrrol",
+                "python",
+                "cloyed",
+                "quaffs",
+                "clunks",
+                "quokka",
+                "coifed"
+        };
 
         for (String word: words) {
             HangmanGame game = new HangmanGame(word, Math.max(5, word.length()));
             HangmanGameRunner runner = new HangmanGameRunner();
             runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-            System.out.println("(" + word.length() + ") " + game + "; word length ");
+            System.out.println(word + " " + game);
         }
 
     }

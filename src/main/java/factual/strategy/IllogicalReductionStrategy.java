@@ -104,12 +104,12 @@ public class IllogicalReductionStrategy implements GuessingStrategy {
     }
 
     private void illogicalReduction(HangmanGame game) {
-        if (game.numWrongGuessesRemaining() <= 2 && words.size() >= 10) {
+        if (game.numWrongGuessesRemaining() <= 1 && words.size() >= 10) {
             Wordlist tmp = new Wordlist();
             tmp.addAll(Collections2.filter(words, new Predicate<Word>() {
                 @Override
                 public boolean apply(Word word) {
-                    return generator.nextBoolean();
+                    return generator.nextInt(100) > 30;
                 }
             }));
             words = tmp;

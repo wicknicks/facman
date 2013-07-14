@@ -23,14 +23,14 @@ public class OptimisticConsonant implements GuessingStrategy {
     }
 
     private void buildAllIndexes() {
-        //System.out.println("Size of Wordlist = " + words.size());
+        ///System.out.println("Size of Wordlist = " + words.size() + " " + game);
         pairIndex.index(words);
         positionIndexer.buildIndex(words);
         frequencyCounter.count(this.words);
     }
 
-    public int words() {
-        return this.words.size();
+    public Wordlist words() {
+        return this.words;
     }
 
     @Override
@@ -63,16 +63,14 @@ public class OptimisticConsonant implements GuessingStrategy {
         Character c = null;
 
         buildAllIndexes();
+        System.out.println(game + " " + game.numWrongGuessesRemaining() + " ;; Size of Wordlist = " + words.size());
+
         int k=0;
         while (true) {
-            if (false && guesses.size() >= 3 && (game.getAllGuessedLetters().size() - game.getCorrectlyGuessedLetters().size() >= 3) ) {
-                //System.out.println("most vowel");
-                c = frequencyCounter.getMostFrequentVowel(k);
-            }
-            else {
-                //System.out.println("freq consonant");
-                c = frequencyCounter.getMostFrequentConsonant(k);
-            }
+
+            //System.out.println("freq consonant");
+            c = frequencyCounter.getMostFrequentConsonant(k);
+
             if (c == null) break;
             if ( !guesses.contains(c) ) break;
             c = null;
