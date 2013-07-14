@@ -5,6 +5,7 @@ import com.google.common.collect.Collections2;
 import factual.HangmanGame;
 import factual.HangmanGameRunner;
 import factual.strategy.FreqEliminatingStrategy;
+import factual.strategy.OptimisticConsonant;
 import factual.strategy.PairEliminationStrategy;
 import factual.support.Wordlist;
 import org.apache.log4j.Logger;
@@ -204,7 +205,7 @@ public class BigTest {
                 HangmanGame game = new HangmanGame(word, chances);
                 HangmanGameRunner runner = new HangmanGameRunner();
 
-                runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 if (game.gameStatus() == HangmanGame.Status.GAME_WON) won++;
                 else lost++;
             }
