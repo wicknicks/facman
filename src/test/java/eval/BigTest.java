@@ -258,7 +258,7 @@ public class BigTest {
                 if (!t) {
                     x++;
                     System.out.print(word + " " + game.getGuessedSoFar() + "\t");
-                    if (x % 8 == 0) System.out.println();
+                    if (x % 5 == 0) System.out.println();
                 }
 
                 //if (game.gameStatus() == HangmanGame.Status.GAME_WON) won++;
