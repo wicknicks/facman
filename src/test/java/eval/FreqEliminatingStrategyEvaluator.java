@@ -11,7 +11,7 @@ public class FreqEliminatingStrategyEvaluator {
 
     @Test
     public void singleWordGuessTest() {
-        String word = "abdicator";
+        String word = "yolked";
         int chances = Math.max(5, word.length());
         System.out.println("Word = " + word + " ; chances = " + chances);
 
@@ -19,6 +19,7 @@ public class FreqEliminatingStrategyEvaluator {
         HangmanGameRunner runner = new HangmanGameRunner();
 
         runner.run(game, new FreqEliminatingStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+        System.out.println("(" + word.length() + ") " + game);
     }
 
     @Test

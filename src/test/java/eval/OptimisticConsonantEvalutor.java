@@ -12,7 +12,7 @@ public class OptimisticConsonantEvalutor {
 
     @Test
     public void singleWordGuessTest() {
-        String word = "abdicates";
+        String word = "yolked";
         int chances = 6;
         System.out.println("Word = " + word + " ; chances = " + chances);
 

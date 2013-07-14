@@ -54,6 +54,7 @@ public class FreqEliminatingStrategy implements GuessingStrategy {
         if (guesses.size() > 0 && game.getIncorrectlyGuessedLetters().contains(guesses.get(guesses.size() - 1)))
             wordElimination(guesses.get(guesses.size() - 1));
 
+        System.out.println("Size of wordlist = " + this.words.size());
         frequencyCounter.count(this.words);
 
         int k=0;
