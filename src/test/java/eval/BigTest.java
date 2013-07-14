@@ -142,7 +142,7 @@ public class BigTest {
                 HangmanGame game = new HangmanGame(word, chances);
                 HangmanGameRunner runner = new HangmanGameRunner();
 
-                runner.run(game, new FreqEliminatingStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 if (game.gameStatus() == HangmanGame.Status.GAME_WON) won++;
                 else lost++;
             }
