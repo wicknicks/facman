@@ -12,15 +12,16 @@ public class OptimisticConsonantEvalutor {
 
     @Test
     public void singleWordGuessTest() {
-        String word = "yolked";
+        String word = "quahog";
         int chances = 6;
         System.out.println("Word = " + word + " ; chances = " + chances);
 
         HangmanGame game = new HangmanGame(word, chances);
         HangmanGameRunner runner = new HangmanGameRunner();
 
-        runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-        System.out.println("(" + word.length() + ") " + game);
+        OptimisticConsonant oc = new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt"));
+        runner.run(game, oc);
+        System.out.println("(" + word.length() + ") " + game + " " + oc.words());
     }
 
 

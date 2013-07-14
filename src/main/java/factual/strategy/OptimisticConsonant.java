@@ -29,6 +29,10 @@ public class OptimisticConsonant implements GuessingStrategy {
         frequencyCounter.count(this.words);
     }
 
+    public int words() {
+        return this.words.size();
+    }
+
     @Override
     public Guess nextGuess(HangmanGame game) {
         if (guesses.size() > 0 && game.getCorrectlyGuessedLetters().contains(guesses.get(guesses.size() - 1)))

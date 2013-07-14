@@ -8,8 +8,8 @@ public class HangmanGameRunner {
             Guess guess = strategy.nextGuess(game);
             guess.makeGuess(game);
 
-            //System.out.println("Guessing " + guess);
-            //System.out.println(game);
+            System.out.println("Guessing " + guess);
+            System.out.println(game);
         }
 
         //System.out.println(game);
