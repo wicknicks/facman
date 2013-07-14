@@ -66,7 +66,7 @@ public class OptimisticConsonant implements GuessingStrategy {
             if ( !guesses.contains(c) ) break;
             c = null;
             k++;
-            if (k > 3) break;
+            if (k >= 1) break;
         }
 
         if (c != null) {
