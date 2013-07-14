@@ -5,6 +5,7 @@ import com.google.common.collect.Collections2;
 import factual.HangmanGame;
 import factual.HangmanGameRunner;
 import factual.strategy.FreqEliminatingStrategy;
+import factual.strategy.IllogicalReductionStrategy;
 import factual.strategy.PairEliminationStrategy;
 import factual.strategy.OptimisticConsonant;
 import factual.support.Wordlist;
@@ -207,11 +208,13 @@ public class BigTest {
                 HangmanGame game = new HangmanGame(word, chances);
                 HangmanGameRunner runner = new HangmanGameRunner();
 
-                runner.run(game, new FreqEliminatingStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                //runner.run(game, new FreqEliminatingStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 //runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 //runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
 
+                /*
                 game = new HangmanGame(word, chances);
                 runner = new HangmanGameRunner();
                 runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
@@ -222,6 +225,7 @@ public class BigTest {
                 runner = new HangmanGameRunner();
                 runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
                 if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+                */
 
                 if (t) won++; else lost++;
                 //if (game.gameStatus() == HangmanGame.Status.GAME_WON) won++;
