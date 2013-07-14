@@ -125,7 +125,7 @@ public class BigTest {
         }
 
         logger.info("won = " + won + " ; lost = " + lost
-                        + " (" + ((100.0*won)/wordlist.size()) + ") ");
+                + " (" + ((100.0*won)/wordlist.size()) + ") ");
     }
 
     @Test
@@ -184,6 +184,12 @@ public class BigTest {
         private final int chances = 5;
         private int won=0, lost = 0;
 
+        private boolean freq = false;
+        private boolean pair = false;
+        private boolean optc = false;
+        private boolean redcr = false;
+        private boolean atleastOne = false;
+
         public Gamer(List<String> words, int start, int end) {
             this.words = words;
             this.start = start;
@@ -207,40 +213,42 @@ public class BigTest {
                 String word = words.get(i);
                 //if (i % 100 == 0) System.out.println(word + " " + i);
 
-                HangmanGame game = new HangmanGame(word, chances);
-                HangmanGameRunner runner = new HangmanGameRunner();
+                HangmanGame game = null;
+                HangmanGameRunner runner;
 
-                //runner.run(game, new FreqEliminatingStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-                //runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                if (atleastOne || freq) {
+                    game = new HangmanGame(word, chances);
+                    runner = new HangmanGameRunner();
+                    runner.run(game, new FreqEliminatingStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                    if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+                }
 
-                //OptimisticConsonant oc = new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt"));
-                //runner.run(game, oc);
-
-                runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-                if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
-
-                /*
-                game = new HangmanGame(word, chances);
-                runner = new HangmanGameRunner();
-                runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-                if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+                if (atleastOne || pair) {
+                    game = new HangmanGame(word, chances);
+                    runner = new HangmanGameRunner();
+                    runner.run(game, new PairEliminationStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                    if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+                }
 
 
-                game = new HangmanGame(word, chances);
-                runner = new HangmanGameRunner();
-                runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-                if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+                if (atleastOne || optc) {
+                    game = new HangmanGame(word, chances);
+                    runner = new HangmanGameRunner();
+                    runner.run(game, new OptimisticConsonant(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                    if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+                }
 
-                game = new HangmanGame(word, chances);
-                runner = new HangmanGameRunner();
-                runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
-                if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+                if (atleastOne || redcr) {
+                    game = new HangmanGame(word, chances);
+                    runner = new HangmanGameRunner();
+                    runner.run(game, new IllogicalReductionStrategy(Wordlist.loadFromFile("data/" + word.length() + ".sp.txt")));
+                    if (game.gameStatus() == HangmanGame.Status.GAME_WON) t = true;
+                }
 
-                */
+                if (game == null) continue;
+
                 if (t) won++; else lost++;
-
-                //if (!t && oc.words().size() < 10) System.out.println(word + " " + game.getGuessedSoFar() + " "  + oc.words().toString());
-                //else if (!t) System.out.println(word + " " + game.getGuessedSoFar());
+                if (!t) System.out.println(word + " " + game.getGuessedSoFar());
 
                 //if (game.gameStatus() == HangmanGame.Status.GAME_WON) won++;
                 //else lost++;
